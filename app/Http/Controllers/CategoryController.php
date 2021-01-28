@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->save();
-        return redirect('/');
+        return redirect('category');
     }
 
     /**
@@ -80,6 +80,7 @@ class CategoryController extends Controller
         $data->name = $request->name;
         $data->description =$request->description;
         $data->save();
+        return redirect('category');
     }
 
     /**
@@ -91,6 +92,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect('/');
+        return redirect('category');
     }
 }

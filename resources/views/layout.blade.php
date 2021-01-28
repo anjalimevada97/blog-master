@@ -30,10 +30,10 @@
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Category</a>
+              <a class="nav-link" href="{{route('category.index')}}">Category</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Post</a>
+              <a class="nav-link" href="{{route('post.index')}}">Post</a>
             </li>
           </ul>
         </div>
