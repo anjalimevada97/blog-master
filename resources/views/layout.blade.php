@@ -25,15 +25,18 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav d-flex">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{route('post.index')}}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('category.index')}}">Category</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('post.index')}}">Post</a>
+            </li>
+            <li class="nav-item logout">
+              <a class="nav-link ml-auto" href="/logout">Logout</a>
             </li>
           </ul>
         </div>
@@ -48,3 +51,11 @@
 </body>
 
 </html>
+
+<style scoped>
+
+  .logout {
+    float: right;
+  }
+
+</style>

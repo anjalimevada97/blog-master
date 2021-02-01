@@ -12,7 +12,7 @@
 <body>
     <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mt-28 mx-auto items-center lg:w-2/6 md:w-1/2">
-            <form method="POST" class="bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+            <form method="POST" action="login" class="bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
                 @csrf
                 <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Login</h2>
                 <div class="relative mb-4">

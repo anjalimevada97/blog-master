@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -17,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::post('/', function () {
+//     return view('login');
+// });
 
 Route::view('login', 'login');
 Route::post('login', [LoginController::class, 'login']);
@@ -27,13 +28,12 @@ Route::post('login', [LoginController::class, 'login']);
 Route::view('register', 'register');
 Route::post('register', [RegisterController::class, 'register']);
 
-Route::view('index', 'index');
+Route::get('logout', [LoginController::class, 'logout']);
+
 Route::view('layout', 'layout');
-// Route::view('create', 'post.create');
-// Route::view('edit', 'category.edit');
-
-// Route::view('list', 'category.list');
-
-Route::resource('category', CategoryController::class);
 
 Route::resource('post', PostController::class);
+Route::resource('category', CategoryController::class)->middleware('admin');
+// Route::middleware('admin')->group(function (){
+//     Route::resource('category', CategoryController::class);
+// });

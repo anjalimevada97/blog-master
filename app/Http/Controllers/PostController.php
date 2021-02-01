@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -13,10 +14,19 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Post::with('category')->get();
         $post = Category::all();
+        $id = Auth::id();
+        $data = Post::with(['category','user'])
+            ->user($id)
+            ->applyFilters($request->only([
+                'start_date',
+                'end_date',
+                'category_id',
+            ]))
+            ->get();
+        
         return view('post.list', compact('data', 'post'));
     }
 
@@ -40,10 +50,13 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post;
+        $user = Auth::id();
         $post->title = $request->input('title');
         $post->description = $request->input('description');
         $post->category_id = $request->input('category_id');
+        $post->user_id = $user;
         $post->save();
+        return redirect('post');
     }
 
     /**
@@ -66,7 +79,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $data = Post::find($id);
-        return view('post.edit', ['data' => $data]);
+        $category = Category::all();
+        return view('post.edit', compact('data','category'));
     }
 
     /**
@@ -81,7 +95,9 @@ class PostController extends Controller
         $data = Post::find($id);
         $data->title = $request->title;
         $data->description = $request->description;
+        $data->category_id = $request->input('category_id');
         $data->save();
+        return redirect('post');
     }
 
     /**
@@ -93,6 +109,6 @@ class PostController extends Controller
     public function destroy($id)
     {
         Post::find($id)->delete();
-        return redirect('post.list');
+        return redirect('post');
     }
 }

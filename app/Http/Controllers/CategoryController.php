@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+
 class CategoryController extends Controller
 {
     /**
@@ -12,11 +13,18 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //dd('hii');
         $data = Category::all();
-        return view('category.list',['data' => $data]);
+
+        $categories = Category::query()->applyFilters($request->only([
+            'start_date',
+            'end_date',
+            'category',
+        ]))
+        ->get();
+
+        return view('category.list', compact('data', 'categories'));
     }
 
     /**
